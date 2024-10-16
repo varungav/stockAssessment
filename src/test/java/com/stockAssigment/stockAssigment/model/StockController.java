@@ -1,44 +1,39 @@
 package com.stockAssigment.stockAssigment.model;
 
-import org.json.JSONException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import org.json.JSONObject;
+import com.stockAssigment.stockAssigment.StockQuote;
+import com.stockAssigment.stockAssigment.StockService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/api/stocks")
 public class StockController {
 
-    // API key for Alpha Vantage (replace 'demo' with your actual key)
-    private static final String API_KEY = "demo";
+    private final StockService stockService;
 
-    @GetMapping("/stock")
-    public String getStockData() throws JSONException {
-        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=" + API_KEY;
+    public StockController(StockService stockService) {
+        this.stockService = stockService;
+    }
 
-        // Call the Alpha Vantage API using RestTemplate
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(url, String.class);
+    @GetMapping("/daily-open-close/{stocksTicker}/{date}")
+    public StockQuote getDailyOpenClose(
+            @PathVariable String stocksTicker,
+            @PathVariable String date,
+            @RequestParam(defaultValue = "true") boolean adjusted) {
+        return stockService.getDailyOpenClose(stocksTicker, date);
+    }
 
-        // Parse the response using org.json
-        JSONObject jsonObject = new JSONObject(result);
+    // Endpoint to get quote by symbol
+    @GetMapping("/quote/{symbol}")
+    public StockQuote getQuoteBySymbol(@PathVariable String symbol) {
+        return stockService.getQuoteBySymbol(symbol);
+    }
 
-        // Extracting Meta Data
-        JSONObject metaData = jsonObject.getJSONObject("Meta Data");
-        String stockName = metaData.getString("2. Symbol");
-
-        // Extracting Time Series data (first entry)
-        JSONObject timeSeries = jsonObject.getJSONObject("Time Series (5min)");
-        String firstTimestamp = (String) timeSeries.keys().next(); // Get the first timestamp
-        JSONObject stockData = timeSeries.getJSONObject(firstTimestamp);
-
-        String lowestPrice = stockData.getString("3. low");
-        String highestPrice = stockData.getString("2. high");
-
-        // Build a response message
-        return "Stock: " + stockName + "\n" +
-                "Timestamp: " + firstTimestamp + "\n" +
-                "Lowest Price: " + lowestPrice + "\n" +
-                "Highest Price: " + highestPrice;
+    // Endpoint to get batch quotes by symbols
+    @GetMapping("/batch-quotes")
+    public List<StockQuote> getBatchQuotesBySymbols(@RequestParam List<String> symbols) {
+        return stockService.getBatchQuotesBySymbols(symbols);
     }
 }
