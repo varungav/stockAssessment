@@ -28,6 +28,17 @@ public class StockQuote {
     private BigDecimal percentageChange;
     private Date timestamp; // New field for timestamp
 
+    //constructors
+
+    public StockQuote(String symbol, BigDecimal open, BigDecimal close) {
+        this.symbol = symbol;
+        this.open = open;
+        this.close = close;
+    }
+
+    public StockQuote() {
+    }
+
     // Getters and setters
     public Long getId() {
         return id;
