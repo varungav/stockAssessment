@@ -1,15 +1,15 @@
-package com.stockAssigment.stockAssigment;
+package com.stockAssigment.stockAssigment.Entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity // This annotation marks this class as a JPA entity
+@Entity
 public class StockQuote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generate the primary key
-    private Long id; // Assuming you want an ID for each quote
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String symbol;
     private BigDecimal open;
@@ -19,14 +19,14 @@ public class StockQuote {
     private BigDecimal afterHours;
     private BigDecimal preMarket;
     private Long volume;
-    private String fromSource; // Renamed from 'from' to 'fromSource'
-    private String status;  // Include status to check for errors
-    private String error;   // Include error message if status is ERROR
+    private String fromSource;
+    private String status;
+    private String error;
     private BigDecimal price;
-    private BigDecimal priceChange; // Rename from 'change' to 'priceChange'
+    private BigDecimal priceChange;
 
     private BigDecimal percentageChange;
-    private Date timestamp; // New field for timestamp
+    private Date timestamp;
 
     //constructors
 

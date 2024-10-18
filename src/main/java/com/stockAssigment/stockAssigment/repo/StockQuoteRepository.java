@@ -1,5 +1,6 @@
-package com.stockAssigment.stockAssigment;
+package com.stockAssigment.stockAssigment.repo;
 
+import com.stockAssigment.stockAssigment.Entity.StockQuote;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;

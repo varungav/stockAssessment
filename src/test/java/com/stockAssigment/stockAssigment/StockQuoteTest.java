@@ -1,5 +1,6 @@
 package com.stockAssigment.stockAssigment;
 
+import com.stockAssigment.stockAssigment.Entity.StockQuote;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,21 +15,21 @@ public class StockQuoteTest {
         StockQuote stockQuote = new StockQuote();
         stockQuote.setId(1L);
         stockQuote.setSymbol("AAPL");
-        stockQuote.setOpen(BigDecimal.valueOf(145.00));
-        stockQuote.setClose(BigDecimal.valueOf(150.00));
-        stockQuote.setHigh(BigDecimal.valueOf(152.00));
-        stockQuote.setLow(BigDecimal.valueOf(144.00));
-        stockQuote.setVolume(10000L);
+        stockQuote.setHigh(BigDecimal.valueOf(150.75));
+        stockQuote.setLow(BigDecimal.valueOf(145.50));
+        stockQuote.setPrice(BigDecimal.valueOf(149.00));
+        stockQuote.setPriceChange(BigDecimal.valueOf(3.50));
+        stockQuote.setPercentageChange(BigDecimal.valueOf(2.40));
         stockQuote.setTimestamp(new Date());
 
 
-        assertEquals(1L,stockQuote.getId());
-        assertEquals("AAPL",stockQuote.getSymbol());
-        assertEquals(BigDecimal.valueOf(145.00),stockQuote.getOpen());
-        assertEquals(BigDecimal.valueOf(150.00),stockQuote.getClose());
-        assertEquals(BigDecimal.valueOf(152.00),stockQuote.getHigh());
-        assertEquals(BigDecimal.valueOf(144.00),stockQuote.getLow());
-        assertEquals(10000L,stockQuote.getVolume());
+        assertEquals(1L, stockQuote.getId());
+        assertEquals("AAPL", stockQuote.getSymbol());
+        assertEquals(BigDecimal.valueOf(150.75), stockQuote.getHigh());
+        assertEquals(BigDecimal.valueOf(145.50), stockQuote.getLow());
+        assertEquals(BigDecimal.valueOf(149.00), stockQuote.getPrice());
+        assertEquals(BigDecimal.valueOf(3.50), stockQuote.getPriceChange());
+        assertEquals(BigDecimal.valueOf(2.40), stockQuote.getPercentageChange());
         assertNotNull(stockQuote.getTimestamp());
     }
 
